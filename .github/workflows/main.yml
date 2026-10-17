@@ -1,0 +1,38 @@
+
+
+name: Shazad Digital Labs - Windows Setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    # GitHub-hosted Windows runner
+    runs-on: windows-2025
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Windows environment
+        shell: pwsh
+        run: |
+          Write-Host "Shazad Digital Labs"
+          Get-ComputerInfo |
+            Select-Object WindowsProductName,
+                          WindowsVersion,
+                          OsArchitecture
+
+      - name: Check development tools
+        shell: pwsh
+        run: |
+          Write-Host "PowerShell version:"
+          $PSVersionTable.PSVersion
+
+          Write-Host "Git version:"
+          git --version
+
+          Write-Host "Environment setup complete."
